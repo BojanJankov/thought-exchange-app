@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.postsRouter = void 0;
+const express_1 = require("express");
+const posts_controller_1 = require("../controllers/posts.controller");
+const entity_validator_middleware_1 = require("../middlewares/entity-validator.middleware");
+exports.postsRouter = (0, express_1.Router)();
+exports.postsRouter.get("/", posts_controller_1.PostsController.getAllPosts);
+exports.postsRouter.post("/", (0, entity_validator_middleware_1.entityValidator)(entity_validator_middleware_1.createPostSchema), posts_controller_1.PostsController.createPost);
+exports.postsRouter.get("/user", posts_controller_1.PostsController.getPostsByUser);
+exports.postsRouter.get("/:id", posts_controller_1.PostsController.getPostById);
+exports.postsRouter.patch("/:id", (0, entity_validator_middleware_1.entityValidator)(entity_validator_middleware_1.updatePostSchema), posts_controller_1.PostsController.updatePost);
+exports.postsRouter.delete("/:id", posts_controller_1.PostsController.deletePost);
+exports.postsRouter.patch("/:id/like", posts_controller_1.PostsController.likePost);
+exports.postsRouter.patch("/:id/dislike", posts_controller_1.PostsController.dislikePost);
